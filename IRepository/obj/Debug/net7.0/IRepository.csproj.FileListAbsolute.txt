@@ -1,0 +1,12 @@
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\bin\Debug\net7.0\IRepository.deps.json
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\bin\Debug\net7.0\IRepository.dll
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\bin\Debug\net7.0\IRepository.pdb
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.csproj.AssemblyReference.cache
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.AssemblyInfoInputs.cache
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.AssemblyInfo.cs
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.csproj.CoreCompileInputs.cache
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.dll
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\refint\IRepository.dll
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\IRepository.pdb
+C:\Users\pralhad\source\repos\WebApplication18\IRepository\obj\Debug\net7.0\ref\IRepository.dll
