@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Service;
 using IService;
 using IRepository;
+using AutoMapper;
+using MyMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,12 @@ var connectionString = builder.Configuration.GetConnectionString("connectionStri
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
     options.UseNpgsql(connectionString); 
+});
+
+var mapperConfig = new MapperConfiguration(config =>
+{
+    config.AddProfile<MyMappingProfile>();
+    // Add more profiles as needed
 });
 
 builder.Services.AddScoped(typeof(IService<>),typeof(Service<>));

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "G0ar/LBlCYeNgQHmTFecSE5cD3XQNjry/8R+NZSFKm/aTu73q1yVhf8hpM+XIamddL3FPkW3Nnx4t/r4R5soOw==",
+  "dgSpecHash": "yN9HBNNw9ng9p85HYkVcP1xj5UEsoggAqZs9ox9q1boRi5tj0oxtfJ53ZDT6RrwXyinA1PuqlUYrGPBzT+j8/Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\pralhad\\source\\repos\\WebApplication18\\WebApplication18\\WebApplication18.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\pralhad\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\pralhad\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\pralhad\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\pralhad\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.5\\microsoft.entityframeworkcore.7.0.5.nupkg.sha512",
     "C:\\Users\\pralhad\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.5\\microsoft.entityframeworkcore.abstractions.7.0.5.nupkg.sha512",
     "C:\\Users\\pralhad\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.5\\microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",

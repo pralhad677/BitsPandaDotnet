@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "StkT38ksXCoVYNV8Y3v/VRnk5MGii6Dn8AZvtYA7TjQn5hyAuuqgDbE0In7MEM9OctndJQMrGh3bvzXI4tevmQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\pralhad\\source\\repos\\WebApplication18\\MyMapper\\MyMapper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\pralhad\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\pralhad\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
