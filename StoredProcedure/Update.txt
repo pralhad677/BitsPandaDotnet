@@ -1,0 +1,9 @@
+CREATE OR REPLACE FUNCTION update_user_name(p_id UUID, p_new_name VARCHAR(50))
+RETURNS VOID AS
+$$
+BEGIN
+    UPDATE users SET Username = p_new_name WHERE Id = p_id;
+END;
+$$
+LANGUAGE plpgsql;
+SELECT update_user_name('0e1afd5c-0677-4a4a-9807-fae7d9acc8bd', 'ryan');

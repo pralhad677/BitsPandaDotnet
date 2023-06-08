@@ -10,11 +10,8 @@ namespace Model
     {
         public bool IsSuccess { get; set; }
         public T Data { get; set; }
-        public List<string> Errors { get; set; }
+        public string Errors { get; set; }
 
-        public ServiceResponse()
-        {
-            Errors = new List<string>();
-        }
+        
     }
 }

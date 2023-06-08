@@ -17,6 +17,7 @@ namespace Repository
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Admins.Admin> Admins { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

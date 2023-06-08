@@ -24,9 +24,13 @@ var mapperConfig = new MapperConfiguration(config =>
     config.AddProfile<MyMappingProfile>();
     // Add more profiles as needed
 });
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 builder.Services.AddScoped(typeof(IService<>),typeof(Service<>));
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+builder.Services.AddScoped(typeof(IAdminService<>),typeof(AdminService<>));
+builder.Services.AddScoped(typeof(IAdminRepo<>),typeof(AdminRepo<>));
 
 
 var app = builder.Build();

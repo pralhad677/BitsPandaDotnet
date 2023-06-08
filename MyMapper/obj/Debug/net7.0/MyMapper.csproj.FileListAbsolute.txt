@@ -1,0 +1,17 @@
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\MyMapper.deps.json
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\MyMapper.dll
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\MyMapper.pdb
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\DTO.dll
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\Model.dll
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\DTO.pdb
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\bin\Debug\net7.0\Model.pdb
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.csproj.AssemblyReference.cache
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.AssemblyInfoInputs.cache
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.AssemblyInfo.cs
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.csproj.CoreCompileInputs.cache
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.csproj.CopyComplete
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.dll
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\refint\MyMapper.dll
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\MyMapper.pdb
+C:\Users\pralhad\source\repos\WebApplication18\MyMapper\obj\Debug\net7.0\ref\MyMapper.dll

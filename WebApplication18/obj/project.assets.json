@@ -589,7 +589,8 @@
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
           "IRepository": "1.0.0",
-          "IService": "1.0.0"
+          "IService": "1.0.0",
+          "Repository": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Service.dll": {}

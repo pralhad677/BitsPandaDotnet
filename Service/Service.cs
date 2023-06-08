@@ -4,7 +4,7 @@ using IService;
 
 namespace Service
 {
-    public class Service<T> : IService<T>
+    public class Service<T> : IService<T> where T : class
     {
 
         public readonly IRepository<T> Repository;
@@ -29,6 +29,10 @@ namespace Service
         public Task UpdateAsync(T entity)
         {
             return Repository.UpdateAsync(entity);
+        }
+       async public Task<List<T>> getAll()
+        {
+            return await Repository.getAll(); ;
         }
     }
 }
