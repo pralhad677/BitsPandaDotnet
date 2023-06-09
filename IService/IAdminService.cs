@@ -11,7 +11,7 @@ namespace IService
         Task<List<T>> getAll();
         Task<T> GetByIdAsync(int id);
         Task<bool> AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
+        Task<bool> UpdateAsync(Guid Id, string Username);
+        Task<bool> DeleteAsync(Guid Id);
     }
 }

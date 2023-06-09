@@ -9,7 +9,7 @@ namespace WebApplication18.Controllers
 {
     [ApiController]
     [Route("api/[controller]/")]
-    public class AdminController:ControllerBase
+    public class AdminController : ControllerBase
     {
         public readonly IAdminService<Admins.Admin> service;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace WebApplication18.Controllers
         [HttpPost("SignUp")]
         async public Task<ServiceResponse<bool>> SignUp(AdminDto adminDto)
         {
-           
+
             var response = new ServiceResponse<bool>();
 
             var h = new Hash();
@@ -32,7 +32,7 @@ namespace WebApplication18.Controllers
             var admin = _mapper.Map<Admins.Admin>(adminDto);
             if (isMatched)
             {
-
+                admin.Password = hashedPassword;
                 var data = await service.AddAsync(admin);
                 response.Data = data;
                 response.IsSuccess = true;
@@ -42,8 +42,8 @@ namespace WebApplication18.Controllers
                 response.IsSuccess = false;
                 response.Errors = "confirmPassword Do not Match";
                 return response;
-                    }
-          
+            }
+
         }
         [HttpGet("getAll")]
         async public Task<ServiceResponse<dynamic>> getAll()
@@ -53,5 +53,24 @@ namespace WebApplication18.Controllers
             response.Data = x;
             return response;
         }
+        [HttpDelete("deleteByAdminId")]
+        async public Task<ServiceResponse<bool>> deleteByAdminId([FromQuery] Guid Id)
+        {
+
+            var response = new ServiceResponse<bool>();
+            response.IsSuccess = await service.DeleteAsync(Id);
+            return response;
+        }
+        [HttpPatch("updateAdmin")]
+        async public Task<ServiceResponse<bool>> updateAdmin(Guid Id, string Username)
+            {
+               var response = new ServiceResponse<bool>();
+        response.IsSuccess = await service.UpdateAsync(Id, Username);
+            return response;
+
+              }
+           
+            
+
     }
 }

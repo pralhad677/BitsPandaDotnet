@@ -1,0 +1,6 @@
+CREATE PROCEDURE GetAdmins
+AS
+BEGIN
+    SELECT Id, Username, Password
+    FROM Admins
+END

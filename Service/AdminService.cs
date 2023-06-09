@@ -22,9 +22,11 @@ namespace Service
              return await _adminRepo.AddAsync(entity);
         }
 
-        public Task DeleteAsync(T entity)
+         
+
+       async public Task<bool> DeleteAsync( Guid Id)
         {
-            throw new NotImplementedException();
+             return await _adminRepo.DeleteAsync(Id);
         }
 
         async public Task<List<T>> getAll()
@@ -37,9 +39,9 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(T entity)
+       async public Task<bool> UpdateAsync(Guid Id, string Username)
         {
-            throw new NotImplementedException();
+           return await _adminRepo.UpdateAsync(Id, Username);
         }
     }
 }

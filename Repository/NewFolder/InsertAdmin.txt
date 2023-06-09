@@ -1,0 +1,11 @@
+ ALTER PROCEDURE InsertAdmin
+    @Id uniqueidentifier,
+    @Username nvarchar(50),
+    @Password nvarchar(50)
+AS
+BEGIN
+    INSERT INTO Admins (Id, Username, Password)
+    VALUES (@Id, @Username, @Password)
+
+    SELECT @Id AS Id, @Username AS Username, @Password AS Password -- Include the Id column in the result set
+END

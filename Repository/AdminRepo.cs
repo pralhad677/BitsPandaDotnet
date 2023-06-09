@@ -7,6 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
 using Model;
+using System.Data;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Repository
 {
@@ -37,61 +41,53 @@ namespace Repository
                 Username = UsenameVale.ToString();
             }
             var Id = Guid.NewGuid();
+            var idParam = new SqlParameter("@Id", SqlDbType.UniqueIdentifier);
+            idParam.Value = Id;
 
-            string query = "SELECT * FROM Admins WHERE Username = '{0}'";
-            string username = "pralhad";
-            string formattedQuery = string.Format(query, username);
-            var x = await _dbContextFactory.Set<T>().FromSqlRaw<T>(formattedQuery).ToListAsync();
-            //List<T> list= await _dbContextFactory.Set<T>().FromSqlRaw<T>($"SELECT * from  insert_admin('{Id.ToString()}', '{Username}','{pw}')").ToListAsync();
+            var usernameParam = new SqlParameter("@Username", SqlDbType.VarChar, 50);
+            usernameParam.Value = Username;
+
+            var passwordParam = new SqlParameter("@Password", SqlDbType.VarChar, 50);
+            passwordParam.Value = pw;
+
+            //var databaseFacade =_dbContextFactory.GetService<DatabaseFacade>();
+            // databaseFacade.ExecuteSqlRaw("EXEC InsertAdmin @Id, @Username, @Password",
+            //     idParam, usernameParam, passwordParam);
+          var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC InsertAdmin @Id={Id}, @Username={Username}, @Password={pw}").ToListAsync();
+       //await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC InsertAdmin @Id={Id}, @Username={Username}, @Password={pw}").ToListAsync();
+          
+            //var dbContext = _dbContextFactory.Set<T>();
+            //await dbContext.FromSqlInterpolated($"EXEC InsertAdmin @Id, @Username, @Password", idParam, usernameParam, passwordParam).ToListAsync();
 
 
-            throw new NotImplementedException();
-        }
+            //.ExecuteSqlRawAsync("EXEC InsertAdmin @Id, @Username, @Password",
+            //idParam, usernameParam, passwordParam);
 
-        public Task DeleteAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<List<T>> getAll()
-        {
-            string connectionString = "Server=localhost; Database=bitspanda01; Port=5432; User Id=postgres; Password=pralhad;";
-            List<T>  adminList = new List<T>();
-            using (var connection = new NpgsqlConnection(connectionString))
+            //var databaseFacade = _dbContextFactory.Database.GetService<DatabaseFacade>();
+            //await databaseFacade.ExecuteSqlRawAsync("EXEC InsertAdmin @Id, @Username, @Password", idParam, usernameParam, passwordParam);
+             if(data.Count >0)
             {
-                connection.Open();
-
-                string query = @"SELECT * FROM public.""Admins""
-                             ORDER BY ""Id"" ASC";
-
-                using (var command = new NpgsqlCommand(query, connection))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            // Access the columns by their respective names or indexes
-                            var admin = new Admins.Admin();
-                            var id = reader.GetGuid(reader.GetOrdinal("Id"));
-                            string username = reader.GetString(reader.GetOrdinal("Username"));
-                            string Password = reader.GetString(reader.GetOrdinal("Password"));
-
-                            Console.WriteLine($"Id: {id}, Username: {username}, Email: {Password}");
-                            admin.Id = id;
-                            admin.Username=username;
-                            admin.Password = Password;
-                            adminList.Add(admin as T);
-                        }
-                    }
-                }
+                return true;
             }
-            
-            var x = Task.Run(() =>
-            {
+            return false;
+        }
 
-                return adminList;
-            });
-            return x;
+       async public Task<bool> DeleteAsync(Guid Id)
+        {
+            //.FromSqlInterpolated($"EXEC InsertAdmin @Id={Id}, @Username={Username}, @Password={pw}")
+              _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC DeleteAdminById @Id={Id}").ToListAsync();
+                Console.WriteLine("asd");
+            return true;
+        }
+
+        async public Task<List<T>> getAll()
+        {
+            var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC  GetAdmins").ToListAsync();
+            Console.WriteLine("asd");
+            return data;
+
+
         }
 
         public Task<T> GetByIdAsync(int id)
@@ -99,9 +95,10 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(T entity)
+        async public Task<bool> UpdateAsync(Guid Id, string Username)
         {
-            throw new NotImplementedException();
+             await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC UpdateAdminNameById @Id={Id}, @Username={Username}").ToListAsync();
+            return true;
         }
     }
 }

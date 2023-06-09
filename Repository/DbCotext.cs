@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace Repository
 {
@@ -41,5 +42,12 @@ namespace Repository
                 // Add additional properties configuration as needed
             });
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.UseSqlServer("Data Source=DESKTOP-93L68OP\\SQLEXPRESS;Initial Catalog=ORRBP;Integrated Security=True; TrustServerCertificate=True;");
+        //    }
+        //}
     }
 }

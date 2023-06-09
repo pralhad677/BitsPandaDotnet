@@ -14,10 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("connectionString");
-builder.Services.AddDbContext<MyDbContext>(options =>
-{
-    options.UseNpgsql(connectionString); 
-});
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<MyDbContext>(options =>
+//{
+//    options.UseNpgsql(connectionString); 
+//});
 
 var mapperConfig = new MapperConfiguration(config =>
 {
