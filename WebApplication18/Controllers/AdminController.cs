@@ -3,6 +3,7 @@ using DTO;
 using IService;
 using Microsoft.AspNetCore.Mvc;
 using Model;
+using Repository;
 
 namespace WebApplication18.Controllers
 {
@@ -19,15 +20,37 @@ namespace WebApplication18.Controllers
             this._mapper = mapper;
         }
         [HttpPost("SignUp")]
-        async public Task<ServiceResponse<bool>> SignUp(Admins.Admin admin)
+        async public Task<ServiceResponse<bool>> SignUp(AdminDto adminDto)
         {
            
             var response = new ServiceResponse<bool>();
-            
 
-            var data = await service.AddAsync(admin);
-            response.Data = data;
-            response.IsSuccess = true;
+            var h = new Hash();
+            var hashedPassword = h.HashAndSetPassword(adminDto.Password);
+            var isMatched = h.IsPasswordConfirmed(hashedPassword, adminDto.ConfirmPassword);
+
+            var admin = _mapper.Map<Admins.Admin>(adminDto);
+            if (isMatched)
+            {
+
+                var data = await service.AddAsync(admin);
+                response.Data = data;
+                response.IsSuccess = true;
+                return response;
+            }
+            else {
+                response.IsSuccess = false;
+                response.Errors = "confirmPassword Do not Match";
+                return response;
+                    }
+          
+        }
+        [HttpGet("getAll")]
+        async public Task<ServiceResponse<dynamic>> getAll()
+        {
+            var x = await service.getAll();
+            var response = new ServiceResponse<dynamic>();
+            response.Data = x;
             return response;
         }
     }

@@ -12,7 +12,7 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20230608150052_initial")]
+    [Migration("20230608174020_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -30,9 +30,6 @@ namespace Repository.Migrations
                     b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("ConfirmPassword")
-                        .HasColumnType("text");
 
                     b.Property<string>("Password")
                         .HasColumnType("text");

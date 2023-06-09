@@ -10,6 +10,8 @@ namespace MyMapper
         {
             CreateMap<UserDto,User>();
             CreateMap<User,UserDto>();
+            CreateMap<AdminDto,Admins.Admin>();
+            CreateMap<Admins.Admin,AdminDto>();
             // Add more mappings as needed
         }
     }

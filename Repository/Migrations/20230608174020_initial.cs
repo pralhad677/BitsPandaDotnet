@@ -17,8 +17,7 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Username = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true),
-                    ConfirmPassword = table.Column<string>(type: "text", nullable: true)
+                    Password = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

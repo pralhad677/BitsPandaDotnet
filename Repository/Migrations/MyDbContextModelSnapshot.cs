@@ -28,9 +28,6 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("ConfirmPassword")
-                        .HasColumnType("text");
-
                     b.Property<string>("Password")
                         .HasColumnType("text");
 

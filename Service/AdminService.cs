@@ -17,9 +17,9 @@ namespace Service
             this._adminRepo = adminRepo;
         }
        
-        public Task<bool> AddAsync(T entity)
+       async public Task<bool> AddAsync(T entity)
         {
-             return _adminRepo.AddAsync(entity);
+             return await _adminRepo.AddAsync(entity);
         }
 
         public Task DeleteAsync(T entity)
@@ -27,9 +27,9 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public Task<List<T>> getAll()
+        async public Task<List<T>> getAll()
         {
-            throw new NotImplementedException();
+            return await _adminRepo.getAll();
         }
 
         public Task<T> GetByIdAsync(int id)
