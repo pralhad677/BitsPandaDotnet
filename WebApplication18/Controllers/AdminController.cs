@@ -62,14 +62,24 @@ namespace WebApplication18.Controllers
             return response;
         }
         [HttpPatch("updateAdmin")]
-        async public Task<ServiceResponse<bool>> updateAdmin(Guid Id, string Username)
+        async public Task<ServiceResponse<bool>> updateAdmin([FromQuery] string Id, string Username)
             {
                var response = new ServiceResponse<bool>();
-        response.IsSuccess = await service.UpdateAsync(Id, Username);
+            Guid id;
+            var istrue = Guid.TryParse(Id, out id);
+            response.IsSuccess = await service.UpdateAsync(id, Username);
             return response;
 
               }
-           
+        [HttpGet("gteById")]
+        async public Task<ServiceResponse<List<Admins.Admin>>> getById([FromQuery]Guid Id)
+        {
+            var response = new ServiceResponse<List<Admins.Admin>>();
+         var data=   await service.GetByIdAsync(Id);
+            (data[0] as dynamic).Username = (data[0] as Admins.Admin).Username.Replace("\"", "");
+            response.Data = data as dynamic;
+            return response;
+        }
             
 
     }

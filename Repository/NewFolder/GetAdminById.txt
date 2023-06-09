@@ -1,0 +1,8 @@
+CREATE PROCEDURE GetAdminById
+    @Id uniqueidentifier
+AS
+BEGIN
+    SELECT Id,   Username, Password
+    FROM Admins
+    WHERE Id = @Id
+END

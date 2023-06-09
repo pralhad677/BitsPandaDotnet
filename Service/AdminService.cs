@@ -34,9 +34,9 @@ namespace Service
             return await _adminRepo.getAll();
         }
 
-        public Task<T> GetByIdAsync(int id)
+      async  public Task<List<T>> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+             return await _adminRepo.GetByIdAsync(id);
         }
 
        async public Task<bool> UpdateAsync(Guid Id, string Username)

@@ -11,6 +11,7 @@ using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Reflection;
 
 namespace Repository
 {
@@ -90,14 +91,22 @@ namespace Repository
 
         }
 
-        public Task<T> GetByIdAsync(int id)
+        async public Task<List<T>> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+             var data =await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC GetAdminById @Id={id}").ToListAsync();
+            //PropertyInfo property = data[0].GetType().GetProperty("Username");
+            //if (property != null && property.CanWrite)
+            //{
+            //    string originalUsername = property.GetValue(data) as string;
+            //    property.SetValue(data, originalUsername.Replace("\\", ""));
+            //}
+            //data.ForEach(item => (item as dynamic).username = (item as dynamic).username.Replace("\\", ""));
+            return data;
         }
 
         async public Task<bool> UpdateAsync(Guid Id, string Username)
         {
-             await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC UpdateAdminNameById @Id={Id}, @Username={Username}").ToListAsync();
+             await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC UpdateAdminNameById @Id={Id}, @NewUserName={Username}").ToListAsync();
             return true;
         }
     }

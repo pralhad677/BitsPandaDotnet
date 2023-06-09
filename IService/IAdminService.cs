@@ -9,7 +9,7 @@ namespace IService
     public interface IAdminService<T>
     {
         Task<List<T>> getAll();
-        Task<T> GetByIdAsync(int id);
+        Task<List<T>> GetByIdAsync(Guid id);
         Task<bool> AddAsync(T entity);
         Task<bool> UpdateAsync(Guid Id, string Username);
         Task<bool> DeleteAsync(Guid Id);
