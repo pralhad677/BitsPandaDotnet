@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DTO;
 using IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Repository;
@@ -51,6 +52,7 @@ namespace WebApplication18.Controllers
             }
 
         }
+        [Authorize]
         [HttpGet("getAll")]
         async public Task<ServiceResponse<dynamic>> getAll()
         {

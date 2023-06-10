@@ -8,13 +8,25 @@ using AutoMapper;
 using MyMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Filters;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(x =>
+{
+    x.AddSecurityDefinition("oauth2",new OpenApiSecurityScheme
+    {
+        Description = """ Standard Autorization  header using the bearer  scheme. Example : "bearer {token}" """,
+        In=ParameterLocation.Header,
+        Name="Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    x.OperationFilter<SecurityRequirementsOperationFilter>();
+});
 var connectionString = builder.Configuration.GetConnectionString("connectionString");
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddCors(options =>
