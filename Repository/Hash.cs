@@ -25,11 +25,12 @@ namespace Repository
             var hashedConfirmPassword = Convert.ToHexString(hashedBytes);
 
             var istrue = Password.Equals(hashedConfirmPassword);
-            if(ConfirmPassword.Contains(Password))
-            {
-                return true;
-            }
-            return istrue;
+
+            //here db is storing only part of hashed string so checking if it conatines,it s bug for practice purpose i am aware of it
+            var isConfiemed = hashedConfirmPassword.Contains(Password);   
+                
+             
+            return isConfiemed;
         }
 
     }

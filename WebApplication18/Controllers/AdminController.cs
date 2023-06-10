@@ -91,14 +91,8 @@ namespace WebApplication18.Controllers
         async public Task<ServiceResponse<bool>> Login(AdminDto admin)
         {
             var response = new ServiceResponse<bool>();
-           bool data = await service.LogIn(admin.Username, admin.Password);
-            if (data == false)
-            {
-                response.IsSuccess = false;
-                response.Errors = $"user with {admin.Username} doesnt exist or Password donot match";
-                return response;
-            }
-            response.Data = data;
+           string data = await service.LogIn(admin.Username, admin.Password);
+            response.Message = data;           
             response.IsSuccess = true;
                 
             return response;

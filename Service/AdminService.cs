@@ -44,7 +44,7 @@ namespace Service
            return await _adminRepo.UpdateAsync(Id, Username);
         }
 
-        async public Task<bool> LogIn(string Username, string Password)
+        async public Task<string> LogIn(string Username, string Password)
         {
             return await _adminRepo.LogIn(Username, Password);
         }

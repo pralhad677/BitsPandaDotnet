@@ -13,7 +13,7 @@ namespace IRepository
         Task<bool> AddAsync(T entity);
         Task<bool> UpdateAsync(Guid Id,string Username);
         Task<bool> DeleteAsync( Guid Id);
-        Task<bool> LogIn(string Username,string Password);
+        Task<string> LogIn(string Username,string Password);
 
         Task<bool> UserExist (string Username);
     }

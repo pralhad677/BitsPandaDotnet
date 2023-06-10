@@ -12,15 +12,21 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Reflection;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Repository
 {
     public class AdminRepo<T> : IAdminRepo<T> where T : class
     {
         protected readonly MyDbContext _dbContextFactory;
-        public AdminRepo(MyDbContext dbContextFactory)
+        private readonly IConfiguration configuration;
+        public AdminRepo(MyDbContext dbContextFactory,IConfiguration configuration)
         {
             _dbContextFactory = dbContextFactory;
+            this.configuration = configuration;
         }
        async public Task<bool> AddAsync(T entity)
         {
@@ -110,26 +116,26 @@ namespace Repository
             return true;
         }
 
-       async public Task<bool> LogIn(string Username, string Password)
+       async public Task<string> LogIn(string Username, string Password)
         {
  
              var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC GetAdminByUsername @Username={Username}").ToListAsync();
-            var item = data[0];
-
-            if (item == null) { 
-            
-            return false;
+            if (data.Count==0) {
+                return $"user with {Username} doesnot exist";
             }
+            var item = data[0];
+ 
             var UName = (item as dynamic).Username;
             var Pw = (item as dynamic).Password;
+            var Id = (item as dynamic).Id;
             var h = new Hash();
             var passwordMatched = h.IsPasswordConfirmed(Pw, Password);
             if (h.IsPasswordConfirmed( Pw,Password))
             {
-
-                return true;
+                var token = createToken(Id,UName);
+                return token;
             }
-            return false;
+            return "password do not match";
          }
         async public Task<bool> UserExist(string Username)
         {
@@ -152,6 +158,31 @@ namespace Repository
 
             Console.WriteLine("User Exists: " + userExists);
             return userExists;
+        }
+
+        private string  createToken(Guid Id,string Username)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier,Id.ToString()),
+                new Claim(ClaimTypes.Name,Username.ToString())
+            };
+            var key = configuration.GetSection("AppSettings:Token").Value;
+            if(key == null)
+            {
+                throw new Exception("secret key is not provided");
+            }
+            SymmetricSecurityKey ssk = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(key));
+            SigningCredentials creds = new SigningCredentials(ssk, SecurityAlgorithms.HmacSha256Signature);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires= DateTime.Now.AddMinutes(30),
+                SigningCredentials =  creds
+            };
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();   
+            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
