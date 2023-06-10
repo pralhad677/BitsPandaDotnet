@@ -35,7 +35,7 @@ namespace Repository
             }
             var hasUsernameProperty = typeof(T).GetProperty("Username") != null;
             var Username = "";
-            if (hasPasswordProperty)
+            if (hasUsernameProperty)
             {
 
                 var UsenameVale = entity.GetType().GetProperty("Username").GetValue(entity);
@@ -108,6 +108,50 @@ namespace Repository
         {
              await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC UpdateAdminNameById @Id={Id}, @NewUserName={Username}").ToListAsync();
             return true;
+        }
+
+       async public Task<bool> LogIn(string Username, string Password)
+        {
+ 
+             var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC GetAdminByUsername @Username={Username}").ToListAsync();
+            var item = data[0];
+
+            if (item == null) { 
+            
+            return false;
+            }
+            var UName = (item as dynamic).Username;
+            var Pw = (item as dynamic).Password;
+            var h = new Hash();
+            var passwordMatched = h.IsPasswordConfirmed(Pw, Password);
+            if (h.IsPasswordConfirmed( Pw,Password))
+            {
+
+                return true;
+            }
+            return false;
+         }
+        async public Task<bool> UserExist(string Username)
+        {
+        
+            bool userExists;
+
+            var usernameParam = new SqlParameter("@Username", Username);
+            var userExistsParam = new SqlParameter("@UserExists", SqlDbType.Bit)
+            {
+                Direction = ParameterDirection.Output
+            };
+
+            await _dbContextFactory.Database.ExecuteSqlInterpolatedAsync($@"
+    EXEC CheckAdminExistence
+        @Username = {usernameParam},
+        @UserExists = {userExistsParam} OUTPUT
+");
+
+            userExists = (bool)userExistsParam.Value;
+
+            Console.WriteLine("User Exists: " + userExists);
+            return userExists;
         }
     }
 }

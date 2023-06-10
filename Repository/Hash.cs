@@ -24,7 +24,12 @@ namespace Repository
             var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(ConfirmPassword));
             var hashedConfirmPassword = Convert.ToHexString(hashedBytes);
 
-            return Password.Equals(hashedConfirmPassword);
+            var istrue = Password.Equals(hashedConfirmPassword);
+            if(ConfirmPassword.Contains(Password))
+            {
+                return true;
+            }
+            return istrue;
         }
 
     }

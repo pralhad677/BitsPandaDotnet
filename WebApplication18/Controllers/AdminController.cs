@@ -30,6 +30,12 @@ namespace WebApplication18.Controllers
             var isMatched = h.IsPasswordConfirmed(hashedPassword, adminDto.ConfirmPassword);
 
             var admin = _mapper.Map<Admins.Admin>(adminDto);
+            if (await service.UserExist(adminDto.Username))
+            {
+                response.IsSuccess = false;
+                response.Errors = "user already exist";
+                return response;
+            }
             if (isMatched)
             {
                 admin.Password = hashedPassword;
@@ -76,11 +82,26 @@ namespace WebApplication18.Controllers
         {
             var response = new ServiceResponse<List<Admins.Admin>>();
          var data=   await service.GetByIdAsync(Id);
-            (data[0] as dynamic).Username = (data[0] as Admins.Admin).Username.Replace("\"", "");
+            (data[0] as dynamic).Username = (data[0] as dynamic).Username.Replace("\"", "");
             response.Data = data as dynamic;
             return response;
         }
-            
 
+        [HttpPost("Login")]
+        async public Task<ServiceResponse<bool>> Login(AdminDto admin)
+        {
+            var response = new ServiceResponse<bool>();
+           bool data = await service.LogIn(admin.Username, admin.Password);
+            if (data == false)
+            {
+                response.IsSuccess = false;
+                response.Errors = $"user with {admin.Username} doesnt exist or Password donot match";
+                return response;
+            }
+            response.Data = data;
+            response.IsSuccess = true;
+                
+            return response;
+        }
     }
 }

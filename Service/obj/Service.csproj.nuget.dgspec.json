@@ -82,7 +82,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\pralhad\\source\\repos\\WebApplication18\\IRepository\\IRepository.csproj": {
+                "projectPath": "C:\\Users\\pralhad\\source\\repos\\WebApplication18\\IRepository\\IRepository.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

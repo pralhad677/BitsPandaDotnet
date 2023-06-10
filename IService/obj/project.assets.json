@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net7.0": {}
+    "net7.0": {
+      "IRepository/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "compile": {
+          "bin/placeholder/IRepository.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IRepository.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "IRepository/1.0.0": {
+      "type": "project",
+      "path": "../IRepository/IRepository.csproj",
+      "msbuildProject": "../IRepository/IRepository.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net7.0": []
+    "net7.0": [
+      "IRepository >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\pralhad\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\pralhad\\source\\repos\\WebApplication18\\IRepository\\IRepository.csproj": {
+              "projectPath": "C:\\Users\\pralhad\\source\\repos\\WebApplication18\\IRepository\\IRepository.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -15,6 +15,16 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("connectionString");
 builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(builder =>
+        {
+            builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+    });
+
 //builder.Services.AddDbContext<MyDbContext>(options =>
 //{
 //    options.UseNpgsql(connectionString); 
@@ -32,6 +42,7 @@ builder.Services.AddScoped(typeof(IService<>),typeof(Service<>));
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddScoped(typeof(IAdminService<>),typeof(AdminService<>));
 builder.Services.AddScoped(typeof(IAdminRepo<>),typeof(AdminRepo<>));
+ 
 
 
 var app = builder.Build();

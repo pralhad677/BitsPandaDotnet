@@ -1,7 +1,7 @@
- ALTER PROCEDURE InsertAdmin
+ CREATE PROCEDURE InsertAdmin
     @Id uniqueidentifier,
     @Username nvarchar(50),
-    @Password nvarchar(50)
+    @Password nvarchar(100)
 AS
 BEGIN
     INSERT INTO Admins (Id, Username, Password)

@@ -10,3 +10,6 @@ C:\Users\pralhad\source\repos\WebApplication18\IService\obj\Debug\net7.0\IServic
 C:\Users\pralhad\source\repos\WebApplication18\IService\obj\Debug\net7.0\refint\IService.dll
 C:\Users\pralhad\source\repos\WebApplication18\IService\obj\Debug\net7.0\IService.pdb
 C:\Users\pralhad\source\repos\WebApplication18\IService\obj\Debug\net7.0\ref\IService.dll
+C:\Users\pralhad\source\repos\WebApplication18\IService\bin\Debug\net7.0\IRepository.dll
+C:\Users\pralhad\source\repos\WebApplication18\IService\bin\Debug\net7.0\IRepository.pdb
+C:\Users\pralhad\source\repos\WebApplication18\IService\obj\Debug\net7.0\IService.csproj.CopyComplete

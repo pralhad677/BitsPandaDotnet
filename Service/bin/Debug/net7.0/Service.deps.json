@@ -639,6 +639,9 @@
         }
       },
       "IService/1.0.0": {
+        "dependencies": {
+          "IRepository": "1.0.0"
+        },
         "runtime": {
           "IService.dll": {}
         }
