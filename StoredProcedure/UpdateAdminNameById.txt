@@ -1,0 +1,14 @@
+ 
+CREATE PROCEDURE UpdateAdminNameById
+    @Id uniqueidentifier,
+     @NewUserName  nvarchar(50)
+AS
+BEGIN
+    UPDATE Admins
+    SET Username =  @NewUserName  
+    WHERE Id = @Id
+
+    SELECT Id, Username , Password
+    FROM Admins
+    WHERE Id = @Id
+END

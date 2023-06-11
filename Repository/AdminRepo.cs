@@ -143,6 +143,8 @@ namespace Repository
             }
              await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC UpdateAdminNameById @Id={Id}, @NewUserName={Username}").ToListAsync();
             var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC GetAdminById @Id={Id}").ToListAsync();
+            //(data as dynamic).Password=(data as dynamic).Password.Substring(0, 10);
+            //Console.WriteLine(data);
             return data;
         }
 
