@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using Repository;
+using System.Security.Claims;
 
 namespace WebApplication18.Controllers
 {
@@ -56,6 +57,8 @@ namespace WebApplication18.Controllers
         [HttpGet("getAll")]
         async public Task<ServiceResponse<dynamic>> getAll()
         {
+            //Guid Id = User.Claims();
+            //var idClaim = Admins.Admin.Find
             var x = await service.getAll();
             var response = new ServiceResponse<dynamic>();
             response.Data = x;

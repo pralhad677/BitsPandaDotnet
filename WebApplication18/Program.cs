@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,7 @@ var mapperConfig = new MapperConfiguration(config =>
 });
 var mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped(typeof(IService<>),typeof(Service<>));
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));

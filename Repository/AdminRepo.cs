@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 using Npgsql;
 using Model;
 using System.Data;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Data.SqlClient; 
 using System.Reflection;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Http;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Repository
 {
@@ -23,10 +23,13 @@ namespace Repository
     {
         protected readonly MyDbContext _dbContextFactory;
         private readonly IConfiguration configuration;
-        public AdminRepo(MyDbContext dbContextFactory,IConfiguration configuration)
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AdminRepo(MyDbContext dbContextFactory,IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _dbContextFactory = dbContextFactory;
             this.configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
        async public Task<bool> AddAsync(T entity)
         {
@@ -83,7 +86,7 @@ namespace Repository
        async public Task<bool> DeleteAsync(Guid Id)
         {
             //.FromSqlInterpolated($"EXEC InsertAdmin @Id={Id}, @Username={Username}, @Password={pw}")
-              _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC DeleteAdminById @Id={Id}").ToListAsync();
+             await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC DeleteAdminById @Id={Id}").ToListAsync();
                 Console.WriteLine("asd");
             return true;
         }
@@ -92,7 +95,16 @@ namespace Repository
         {
             var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC  GetAdmins").ToListAsync();
             Console.WriteLine("asd");
-            return data;
+            var updatedList = data.Select(user =>
+            {
+                if ((user as dynamic).Password.Length > 10)
+                {
+                    (user as dynamic).Password = (user as dynamic).Password.Substring(0, 10);
+                }
+                return user;
+            }).ToList();
+            //return data;
+            return updatedList;
 
 
         }
@@ -107,6 +119,18 @@ namespace Repository
             //    property.SetValue(data, originalUsername.Replace("\\", ""));
             //}
             //data.ForEach(item => (item as dynamic).username = (item as dynamic).username.Replace("\\", ""));
+            //int id1 = int.Parse(_httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(c=>c.Type==ClaimTypes.NameIdentifier)!.Value);
+            var claimsPrincipal = _httpContextAccessor.HttpContext.User;
+            var isAuthenticated = _httpContextAccessor.HttpContext.User.Identity!.IsAuthenticated;
+            var a = ClaimTypes.NameIdentifier;
+            var idClaim = claimsPrincipal.FindFirst(ClaimTypes.Name);
+            if (idClaim != null)
+            {
+                var id2 = idClaim.Value;
+                Console.WriteLine(id2);
+                // Access the id value as needed
+            }
+
             return data;
         }
 
