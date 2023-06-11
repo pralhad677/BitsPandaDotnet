@@ -52,13 +52,16 @@ namespace WebApplication18.Controllers
             }
 
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("getAll")]
         async public Task<ServiceResponse<dynamic>> getAll()
         {
             var x = await service.getAll();
             var response = new ServiceResponse<dynamic>();
             response.Data = x;
+            response.Message = "OK";
+            response.IsSuccess = true;
+            response.IsSuccess = true;
             return response;
         }
         [HttpDelete("deleteByAdminId")]
@@ -70,12 +73,18 @@ namespace WebApplication18.Controllers
             return response;
         }
         [HttpPatch("updateAdmin")]
-        async public Task<ServiceResponse<bool>> updateAdmin([FromQuery] string Id, string Username)
+        async public Task<ServiceResponse<object>> updateAdmin([FromQuery] string Id, string Username)
             {
-               var response = new ServiceResponse<bool>();
+               var response = new ServiceResponse<object>();
             Guid id;
             var istrue = Guid.TryParse(Id, out id);
-            response.IsSuccess = await service.UpdateAsync(id, Username);
+            response.Data = await service.UpdateAsync(id, Username);
+            response.IsSuccess = await service.UpdateAsync(id, Username) switch
+            {
+                string message when message.Contains("already exist")=>false
+            };
+            response.Data = await service.UpdateAsync(id, Username);
+         
             return response;
 
               }
@@ -94,6 +103,18 @@ namespace WebApplication18.Controllers
         {
             var response = new ServiceResponse<bool>();
            string data = await service.LogIn(admin.Username, admin.Password);
+            if (data.Contains("exist"))
+            {
+                response.IsSuccess = false;
+                response.Message = data;
+                return response;
+            }
+            else if (data.Contains("password"))
+            {
+                response.IsSuccess = false;
+                response.Message = data;
+                return response;
+            }
             response.Message = data;           
             response.IsSuccess = true;
                 

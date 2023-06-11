@@ -11,7 +11,7 @@ namespace IRepository
         Task<List<T>> getAll();
         Task<List<T>> GetByIdAsync(Guid id);
         Task<bool> AddAsync(T entity);
-        Task<bool> UpdateAsync(Guid Id,string Username);
+        Task<object> UpdateAsync(Guid Id,string Username);
         Task<bool> DeleteAsync( Guid Id);
         Task<string> LogIn(string Username,string Password);
 

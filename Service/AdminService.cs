@@ -39,7 +39,7 @@ namespace Service
              return await _adminRepo.GetByIdAsync(id);
         }
 
-       async public Task<bool> UpdateAsync(Guid Id, string Username)
+       async public Task<object> UpdateAsync(Guid Id, string Username)
         {
            return await _adminRepo.UpdateAsync(Id, Username);
         }

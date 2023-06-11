@@ -110,10 +110,16 @@ namespace Repository
             return data;
         }
 
-        async public Task<bool> UpdateAsync(Guid Id, string Username)
+        async public Task<object> UpdateAsync(Guid Id, string Username)
         {
+            if (await UserExist(Username))
+            {
+                return $"user with given {Username} already exist";
+                
+            }
              await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC UpdateAdminNameById @Id={Id}, @NewUserName={Username}").ToListAsync();
-            return true;
+            var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC GetAdminById @Id={Id}").ToListAsync();
+            return data;
         }
 
        async public Task<string> LogIn(string Username, string Password)
