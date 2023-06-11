@@ -125,6 +125,7 @@ namespace Repository
        async public Task<string> LogIn(string Username, string Password)
         {
  
+            
              var data = await _dbContextFactory.Set<T>().FromSqlInterpolated($"EXEC GetAdminByUsername @Username={Username}").ToListAsync();
             if (data.Count==0) {
                 return $"user with {Username} doesnot exist";
