@@ -78,13 +78,18 @@ namespace WebApplication18.Controllers
                var response = new ServiceResponse<object>();
             Guid id;
             var istrue = Guid.TryParse(Id, out id);
+            //response.Data = await service.UpdateAsync(id, Username);
+            //response.IsSuccess = await service.UpdateAsync(id, Username) switch
+            //{
+            //    string message when message.Contains("already exist")=>false
+            //};
             response.Data = await service.UpdateAsync(id, Username);
-            response.IsSuccess = await service.UpdateAsync(id, Username) switch
+            response.IsSuccess = response.Data switch
             {
-                string message when message.Contains("already exist")=>false
+                string message when message.Contains("already exist") => false,
+                _=>true
             };
-            response.Data = await service.UpdateAsync(id, Username);
-         
+            Console.WriteLine(response.IsSuccess);
             return response;
 
               }
