@@ -1,1 +1,8 @@
-﻿ 
+﻿ CREATE PROCEDURE [dbo].[DeleteAdminById]
+    @Id uniqueidentifier
+AS
+BEGIN
+    DELETE FROM Admins
+    WHERE Id = @Id
+	SELECT @Id AS Id
+END
